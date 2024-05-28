@@ -59,6 +59,7 @@ fun RecetteGateauChocolat(modifier: Modifier = Modifier,
             Text("Nombre de personnes 👨 : ${recetteVM.nbPersonnes }")
             Text("Nombre d'oeufs : ${recetteVM.nbOeufs }")
             Text("Grammes Farine : ${recetteVM.gFarine }")
+
         }
         IconButton(onClick = { recetteVM.incNbPersonnes() }) {
             Icon(Icons.Filled.KeyboardArrowUp, contentDescription = "Add")

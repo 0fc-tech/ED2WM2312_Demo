@@ -14,17 +14,19 @@ class RecetteViewModel : ViewModel() {
         private set
 
     fun incNbPersonnes() {
-        nbPersonnes+=1
-        nbOeufs = nbPersonnes / 2
-        gFarine = 70 * nbPersonnes
+        nbPersonnes += 1
+        calculRecette()
     }
     fun decNbPersonnes() {
-        if(nbPersonnes==1)
+        if (nbPersonnes == 1)
             return
+        nbPersonnes -=1
+        calculRecette()
+    }
+    fun calculRecette(){
         nbPersonnes-=1
         nbOeufs = nbPersonnes / 2
-        gFarine = 70 * nbPersonnes
+        gFarine = 10 * nbPersonnes
     }
-
 
 }
