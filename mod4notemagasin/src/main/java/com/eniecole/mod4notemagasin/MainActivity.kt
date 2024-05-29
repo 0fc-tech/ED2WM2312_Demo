@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
@@ -40,26 +41,40 @@ fun RatingScreen(modifier: Modifier = Modifier,
     Column(modifier = modifier) {
         when(ratingVM.state){
             is RatingState.Initial -> {
-                Text("Votre note : 0")
-                Slider(value = 0f,
-                    valueRange = 0f..10f,
-                    steps = 10,
-                    onValueChange = {ratingVM.updateRating(it.toInt())})
+                SliderRating(note = 0f, onNoteChange = {ratingVM.updateRating(it.toInt())})
             }
             is RatingState.RequestFeedback-> {
-                Text("Votre note : ${(ratingVM.state as RatingState.RequestFeedback).note}")
-                Slider(value =(ratingVM.state as RatingState.RequestFeedback).note?.toFloat() ?:0f,
-                    valueRange = 0f..11f,
-                    steps = 10,
-                    onValueChange = {ratingVM.updateRating(it.toInt())})
+                SliderRating(note = (ratingVM.state as RatingState.RequestFeedback).note?.toFloat() ?:0f,
+                    onNoteChange = {ratingVM.updateRating(it.toInt())})
                 TextField(
                     value="",
                     onValueChange = {},
                     label = {Text("Ah merde Y s'est passé quoi ?")}
                 )
+                ButtonSubmit(onClick = {ratingVM.submit()})
             }
-            is RatingState.Success-> Text("Success")
-            is RatingState.Finished-> Text("Finished")
+            is RatingState.Success ->{
+                SliderRating(note = (ratingVM.state as RatingState.Success).note?.toFloat() ?:0f,
+                    onNoteChange = {ratingVM.updateRating(it.toInt())})
+                ButtonSubmit(onClick = {ratingVM.submit()})
+            }
+            is RatingState.Finished-> Text("Merci d'avoir répondu")
         }
     }
+}
+
+@Composable
+fun ButtonSubmit(modifier: Modifier = Modifier, onClick: () -> Unit) {
+    ElevatedButton(onClick = onClick) {
+        Text("Valider la note")
+    }
+}
+
+@Composable
+fun SliderRating(modifier: Modifier = Modifier, note: Float, onNoteChange: (Float) -> Unit) {
+    Text("Votre note : $note")
+    Slider(value =note,
+        valueRange = 0f..10f,
+        steps = 9,
+        onValueChange = onNoteChange)
 }

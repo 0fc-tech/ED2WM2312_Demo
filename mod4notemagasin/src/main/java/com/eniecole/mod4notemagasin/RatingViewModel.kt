@@ -16,11 +16,14 @@ class RatingViewModel : ViewModel(){
                 state = RatingState.RequestFeedback(note)
         }
     }
+    fun submit(){
+        state = RatingState.Finished
+    }
 }
 
 sealed class RatingState{
     object Initial : RatingState()
-    class Success(val note : Int?): RatingState()
+    class Success(val note: Int?) : RatingState()
     class RequestFeedback(val note : Int?): RatingState()
     object Finished : RatingState()
 }
