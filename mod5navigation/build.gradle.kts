@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    //ICI ajouter le plugin de sérialisation
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -50,7 +52,10 @@ android {
 }
 
 dependencies {
-    implementation("androidx.navigation:navigation-compose:2.7.7")
+    //Puis cette dépendance
+    implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.2")
+
+    implementation("androidx.navigation:navigation-compose:2.8.0-beta02")
     //implementation("androidx.navigation:navigation-common-ktx:2.8.0-alpha08")
     //implementation("androidx.navigation:navigation-runtime-ktx:2.8.0-alpha08")
     //implementation("androidx.navigation:navigation-safe-args-gradle-plugin:2.8.0-alpha08")

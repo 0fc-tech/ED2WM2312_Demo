@@ -21,7 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SignInScreen(modifier: Modifier = Modifier, onClickSignIn : (email : String)->Unit) {
+fun  SignInScreen(modifier: Modifier = Modifier, onClickSignIn : (email : String)->Unit) {
     var email by remember{ mutableStateOf("") }
     Column(modifier = modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,

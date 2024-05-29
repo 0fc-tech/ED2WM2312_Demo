@@ -16,9 +16,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.navigation.toRoute
 import com.eniecole.mod5navigation.ui.screen.HomeScreen
 import com.eniecole.mod5navigation.ui.screen.SignInScreen
 import com.eniecole.mod5navigation.ui.theme.DemonstrationsTheme
+import kotlinx.serialization.Serializable
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,27 +43,29 @@ class MainActivity : ComponentActivity() {
 fun NavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = "signin"
 ) {
     NavHost(
         modifier = modifier,
         navController = navController,
-        startDestination = startDestination
+        startDestination = SignIn
     ){
         //Lors de la construction de la route,
         //envoyer l'email
-        composable("home/{email}",
-            arguments = listOf(
-                navArgument("email", builder = { NavType.StringType})
-            )){ backStackEntry ->
-            HomeScreen(email=
-                backStackEntry.arguments?.getString("email") ?: "")
+        composable<Home>{ backStackEntry ->
+            val home:Home =backStackEntry.toRoute()
+            HomeScreen(email=home.email)
         }
-        composable("signin"){
-            SignInScreen(onClickSignIn = {email->
-                navController.navigate("home/$email")
+        composable<SignIn>{
+            SignInScreen(onClickSignIn = {email-> 
+                navController.navigate(Home(email))
             })
         }
     }
 }
+
+@Serializable
+data class Home(val email: String)
+
+@Serializable
+object  SignIn
 
