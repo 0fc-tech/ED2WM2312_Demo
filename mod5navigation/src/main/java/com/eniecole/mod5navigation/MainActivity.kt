@@ -56,7 +56,7 @@ fun NavHost(
             HomeScreen(email=home.email)
         }
         composable<SignIn>{
-            SignInScreen(onClickSignIn = {email-> 
+            SignInScreen(onClickSignIn = {email->
                 navController.navigate(Home(email))
             })
         }
