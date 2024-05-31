@@ -4,5 +4,5 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android) apply false
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
     //Plugin projet à rajouter
-    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.20" apply false
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.0" apply false
 }
